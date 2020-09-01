@@ -1,0 +1,25 @@
+{
+  "name": "Employee_Tracker",
+  "version": "1.0.0",
+  "description": "Build a command-line application that at a minimum allows the user to:    * Add departments, roles, employees    * View departments, roles, employees    * Update employee roles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeashwor/Employee_Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeashwor/Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/jeashwor/Employee_Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
