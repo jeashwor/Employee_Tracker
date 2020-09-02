@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const dbReader = require("/dbConnect.js");
+const dbReader = require("./dbConnect.js");
 
 const dbLink = new dbReader();
 
@@ -25,14 +25,17 @@ const startQuestion = () => {
         switch (answer.startQuestion) {
             case startChoices[0]:
                 dbLink.viewAll();
+                startQuestion();
                 break;
 
             case startChoices[1]:
                 dbLink.viewDepartments();
+                startQuestion();
                 break;
 
             case startChoices[2]:
                 dbLink.viewRoles();
+                startQuestion();
                 break;
 
             case startChoices[3]:
@@ -52,7 +55,7 @@ const startQuestion = () => {
                 break;
 
             case startChoices[7]:
-                // function here
+                dbLink.quit();
                 break;
         }
     });

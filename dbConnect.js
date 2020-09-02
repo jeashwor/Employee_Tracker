@@ -28,6 +28,7 @@ connectView = query => {
     if (err) {
       throw err;
     }
+    console.log("\n");
     console.table(res);
   })
 };
@@ -51,6 +52,10 @@ class dbReader {
     connectView(query);
   };
 
+  quit() {
+    console.log("\nGoodbye!");
+    process.exit(0);
+  }
 }
 
 module.exports = dbReader;
