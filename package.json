@@ -4,14 +4,16 @@
   "description": "Build a command-line application that at a minimum allows the user to:    * Add departments, roles, employees    * View departments, roles, employees    * Update employee roles",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node trackerApp.js",
+    "watch": "nodemon trackerApp.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeashwor/Employee_Tracker.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jacob E. Ashworth",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jeashwor/Employee_Tracker/issues"
