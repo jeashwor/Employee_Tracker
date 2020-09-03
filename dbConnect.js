@@ -73,7 +73,11 @@ class dbReader {
 
   deleteEmployee(empdel) {
     return connection.query("DELETE FROM employee WHERE id = ?", empdel.id);
-  }
+  };
+
+  updateRole(role, id) {
+    return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [role, id]);
+  };
 
   quit() {
     console.log("\nGoodbye!");

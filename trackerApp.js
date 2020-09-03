@@ -47,7 +47,7 @@ async function startQuestion() {
                 break;
 
             case startChoices[5]:
-                // function here
+                updateEmployeeRole();
                 break;
 
             case startChoices[6]:
@@ -61,10 +61,44 @@ async function startQuestion() {
     });
 };
 
+async function updateEmployeeRole() {
+    try {
+        const employee = await dbLink.viewAll();
+        const employeeChoices = employee.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+
+        const roleChoiceDB = await dbLink.getRoles();
+        const roleChoices = roleChoiceDB.map(({ id, title }) => ({
+            name: title,
+            value: id
+        }));
+
+        const updateEmployeeID = await inquirer.prompt([{
+            type: "list",
+            name: "id",
+            message: "Which employee do you want to update?",
+            choices: employeeChoices
+        },
+        {
+            type: "list",
+            name: "role_id",
+            message: "Which role is employee moving into?",
+            choices: roleChoices
+        }
+        ]);
+
+        console.log("Employee has been updated.");
+        dbLink.updateRole(updateEmployeeID.role_id, updateEmployeeID.id);
+
+    } finally { startQuestion() };
+};
+
 async function deleteEmployeeQuestions() {
     try {
         const employee = await dbLink.viewAll();
-        const employeeChoices = employee.map(({ id, name}) => ({
+        const employeeChoices = employee.map(({ id, name }) => ({
             name: name,
             value: id
         }));
@@ -74,10 +108,10 @@ async function deleteEmployeeQuestions() {
             message: "Which employee do you want to delete?",
             choices: employeeChoices
         });
-  
+
         console.log("Employee # " + deleteEmployeeID.id + " has been deleted.");
         dbLink.deleteEmployee(deleteEmployeeID);
-    } finally {startQuestion()}
+    } finally { startQuestion() };
 };
 
 async function newEmployeeQuestions() {
