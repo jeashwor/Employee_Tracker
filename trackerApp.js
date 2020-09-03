@@ -43,7 +43,7 @@ async function startQuestion() {
                 break;
 
             case startChoices[4]:
-                // function here
+                deleteEmployeeQuestions();
                 break;
 
             case startChoices[5]:
@@ -61,6 +61,25 @@ async function startQuestion() {
     });
 };
 
+async function deleteEmployeeQuestions() {
+    try {
+        const employee = await dbLink.viewAll();
+        const employeeChoices = employee.map(({ id, name}) => ({
+            name: name,
+            value: id
+        }));
+        const deleteEmployeeID = await inquirer.prompt({
+            type: "list",
+            name: "id",
+            message: "Which employee do you want to delete?",
+            choices: employeeChoices
+        });
+  
+        console.log("Employee # " + deleteEmployeeID.id + " has been deleted.");
+        dbLink.deleteEmployee(deleteEmployeeID);
+    } finally {startQuestion()}
+};
+
 async function newEmployeeQuestions() {
     try {
         const roleChoiceDB = await dbLink.getRoles();
@@ -75,8 +94,6 @@ async function newEmployeeQuestions() {
             value: id
         }));
 
-        console.log(roleChoice);
-        console.log(managerChoice);
         const employeeData = await inquirer.prompt([{
             type: "input",
             name: "first_name",
@@ -100,7 +117,7 @@ async function newEmployeeQuestions() {
             choices: managerChoice
         }
         ]);
-        console.log(employeeData);
+        console.log(employeeData.first_name + " " + employeeData.last_name + " has been added.");
         dbLink.insertNewEmployee(employeeData);
     }
     finally { startQuestion() };

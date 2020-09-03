@@ -58,7 +58,7 @@ class dbReader {
   };
 
   insertNewEmployee(employeeData) {
-    return connection.query('INSERT INTO employee SET ?', employeeData);
+    return connection.query("INSERT INTO employee SET ?", employeeData);
   };
 
   getRoles() {
@@ -70,6 +70,10 @@ class dbReader {
     let query = "SELECT DISTINCT manager.id, CONCAT(manager.first_name,' ',manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id";
     return connection.query(query);
   };
+
+  deleteEmployee(empdel) {
+    return connection.query("DELETE FROM employee WHERE id = ?", empdel.id);
+  }
 
   quit() {
     console.log("\nGoodbye!");
