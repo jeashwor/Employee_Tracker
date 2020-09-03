@@ -1,5 +1,6 @@
 const mysql = require("mysql");
-const cTable = require("console.table");
+
+const util = require("util");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -20,20 +21,25 @@ connection.connect(function (err) {
     console.error("error connecting: " + err.stack);
     return;
   }
-
   console.log("connected as id " + connection.threadId);
 });
 
-connect = query => {
-  connection.query(query, (err, res) => {
-    if (err) {
-      throw err;
-    }
-    return res;
-  });
-};
+connection.query = util.promisify(connection.query);
 
-connectView = query => {
+// connect = query => {
+//   return new Promise((resolve, reject) => {
+//     connection.query(query, (err, res) => {
+//       if (err) {
+//         console.log(err);
+//         throw err;
+//       }
+//       let data = res;
+//       return data;
+//     });
+//   });
+// };
+
+connectDB = query => {
   connection.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -50,23 +56,23 @@ class dbReader {
 
   viewAll() {
     let query = "SELECT employee.id, CONCAT(employee.first_name,' ',employee.last_name) AS name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name,' ',manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id";
-    connectView(query);
+    return connectDB(query);
   };
 
   viewDepartments() {
-    let query = "SELECT name FROM department ";
-    connectView(query);
+    let query = "SELECT department.name AS department, CONCAT(employee.first_name,' ',employee.last_name) AS name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id";
+    return connectDB(query);
   };
 
   getRoles() {
-    let query = "SELECT * FROM role";
-    let roles = connect(query);
-    return roles;    
+    let query = "SELECT title FROM role";
+    let data = connect(query);
+    return data;
   };
 
-  viewRoles() {
-    let query = "SELECT * FROM role";
-    connectView(query);
+  viewByManager() {
+    let query = "SELECT CONCAT(manager.first_name,' ',manager.last_name) AS manager, employee.id, CONCAT(employee.first_name,' ',employee.last_name) AS name, role.title, department.name AS department, role.salary  FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id";
+    return connectDB(query);
   };
 
   quit() {

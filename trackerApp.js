@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const dbReader = require("./dbConnect.js");
+const cTable = require("console.table");
 
 const dbLink = new dbReader();
 
@@ -21,20 +22,21 @@ const startQuestion = () => {
         message: "What would you like to do?",
         choices: startChoices
     }).then(answer => {
-        console.log(answer);
         switch (answer.startQuestion) {
             case startChoices[0]:
-                dbLink.viewAll();
+                console.table(dbLink.viewAll());
                 startQuestion();
                 break;
 
             case startChoices[1]:
-                dbLink.viewDepartments();
+                console.table(dbLink.viewDepartments());
                 startQuestion();
                 break;
 
             case startChoices[2]:
-                dbLink.viewRoles();
+                let data = [];
+                data = dbLink.getRoles();
+                console.log(data);
                 startQuestion();
                 break;
 
