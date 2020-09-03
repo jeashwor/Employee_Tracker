@@ -61,8 +61,16 @@ class dbReader {
     return connection.query("INSERT INTO employee SET ?", employeeData);
   };
 
+  insertNewRole(roleData) {
+    return connection.query("INSERT INTO role SET ?", roleData);
+  };
+
+  insertNewDepartment(departmentData) {
+    return connection.query("INSERT INTO department SET ?", departmentData);
+  };
+  
   getRoles() {
-    let query = "SELECT id, title FROM role";
+    let query = "SELECT DISTINCT id, title FROM role";
     return connection.query(query);
   };
 
@@ -71,8 +79,21 @@ class dbReader {
     return connection.query(query);
   };
 
+  getDepartments() {
+    let query = "SELECT * FROM department";
+    return connection.query(query);
+  }
+
+  deleteDepartment(deptID) {
+    return connection.query("DELETE FROM department WHERE id = ?", deptID.id);
+  };
+
   deleteEmployee(empdel) {
     return connection.query("DELETE FROM employee WHERE id = ?", empdel.id);
+  };
+
+  deleteRole(role) {
+    return connection.query("DELETE FROM role WHERE id = ?", role.id);
   };
 
   updateRole(role, id) {

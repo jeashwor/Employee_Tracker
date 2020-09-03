@@ -12,6 +12,10 @@ const startChoices = [
     "Remove employee",
     "Update employee role",
     "Update employee manager",
+    "Add role",
+    "Remove role",
+    "Add department",
+    "Remove department",
     "Exit application"
 ];
 
@@ -55,6 +59,22 @@ async function startQuestion() {
                 break;
 
             case startChoices[7]:
+                addRoleQuestions();
+                break;
+
+            case startChoices[8]:
+                deleteRoleQuestions();
+                break;
+
+            case startChoices[9]:
+                newDepartmentQuestions();
+                break;
+
+            case startChoices[10]:
+                deleteDepartmentQuestions();
+                break;
+
+            case startChoices[11]:
                 dbLink.quit();
                 break;
         }
@@ -127,6 +147,46 @@ async function updateEmployeeRole() {
     } finally { startQuestion() };
 };
 
+async function deleteDepartmentQuestions() {
+    try {
+        const departmentChoiceDB = await dbLink.getDepartments();
+        const departmentChoices = departmentChoiceDB.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+        const deleteDepartmentID = await inquirer.prompt({
+            type: "list",
+            name: "id",
+            message: "Which department do you want to delete?",
+            choices: departmentChoices
+        });
+
+        console.log("Department # " + deleteDepartmentID.id + " has been deleted, along with corresponding roles and employees.");
+        dbLink.deleteDepartment(deleteDepartmentID);
+
+    } finally { startQuestion() };
+};
+
+async function deleteRoleQuestions() {
+    try {
+        const roleChoiceDB = await dbLink.getRoles();
+        const roleChoice = roleChoiceDB.map(({ id, title }) => ({
+            name: title,
+            value: id
+        }));
+        const deleteRoleID = await inquirer.prompt({
+            type: "list",
+            name: "id",
+            message: "Which employee do you want to delete?",
+            choices: roleChoice
+        });
+
+        console.log("Role # " + deleteRoleID.id + " has been deleted, along with corresponding employees.");
+        dbLink.deleteRole(deleteRoleID);
+
+    } finally { startQuestion() };
+};
+
 async function deleteEmployeeQuestions() {
     try {
         const employee = await dbLink.viewAll();
@@ -143,6 +203,21 @@ async function deleteEmployeeQuestions() {
 
         console.log("Employee # " + deleteEmployeeID.id + " has been deleted.");
         dbLink.deleteEmployee(deleteEmployeeID);
+
+    } finally { startQuestion() };
+};
+
+async function newDepartmentQuestions() {
+    try {
+        const departmentData = await inquirer.prompt({
+            type: "input",
+            name: "name",
+            message: "What is the name of the department you would like to add?"
+        });
+
+        console.log(departmentData.name + " has been added.");
+        dbLink.insertNewDepartment(departmentData);
+
     } finally { startQuestion() };
 };
 
