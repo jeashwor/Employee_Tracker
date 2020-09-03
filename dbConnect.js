@@ -57,9 +57,8 @@ class dbReader {
     return connection.query(query);
   };
 
-  insertNewEmployee(first_name, last_name, role_id, manager_id) {
-    let query = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (" + first_name +"," + last_name + "," + role_id + "," + manager_id + ")";
-    return connection.query(query);
+  insertNewEmployee(employeeData) {
+    return connection.query('INSERT INTO employee SET ?', employeeData);
   };
 
   getRoles() {

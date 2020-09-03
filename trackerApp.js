@@ -15,7 +15,7 @@ const startChoices = [
     "Exit application"
 ];
 
-const startQuestion = () => {
+async function startQuestion() {
     inquirer.prompt({
         type: "list",
         name: "startQuestion",
@@ -40,7 +40,6 @@ const startQuestion = () => {
 
             case startChoices[3]:
                 newEmployeeQuestions();
-                startQuestion();
                 break;
 
             case startChoices[4]:
@@ -63,44 +62,49 @@ const startQuestion = () => {
 };
 
 async function newEmployeeQuestions() {
-    const roleChoiceDB = await dbLink.getRoles();
-    const roleChoice = roleChoiceDB.map(({id, title}) => ({
-        name: title,
-        value: id
-    }));
+    try {
+        const roleChoiceDB = await dbLink.getRoles();
+        const roleChoice = roleChoiceDB.map(({ id, title }) => ({
+            name: title,
+            value: id
+        }));
 
-    const managerChoiceDB = await dbLink.getManagers();
-    const managerChoice = managerChoiceDB.map(({id, manager}) => ({
-        name: manager,
-        value: id
-    }));
+        const managerChoiceDB = await dbLink.getManagers();
+        const managerChoice = managerChoiceDB.map(({ id, manager }) => ({
+            name: manager,
+            value: id
+        }));
 
-    console.log(roleChoice);
-    console.log(managerChoice);
-    // const employeeData = await inquirer.prompt([{
-    //     type: "input",
-    //     name: "first_name",
-    //     message: "What is the employee's first name?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "last_name",
-    //     message: "What is the employee's last name?"
-    // },
-    // {
-    //     type: "list",
-    //     name: "role_id",
-    //     message: "Chose a position for the new employee.",
-    //     choices: roleChoice
-    // },
-    // {
-    //     type: "list",
-    //     name: "manager_id",
-    //     message: "Chose a manager for the new employee.",
-    //     choices: managerChoice
-    // }
-    // ]).then(() => {console.log(employeeData);
-// })
-    // dbLink.insertNewEmployee(employeeData.first_name, employeeData.last_name, role_id, manager_id)
-}
+        console.log(roleChoice);
+        console.log(managerChoice);
+        const employeeData = await inquirer.prompt([{
+            type: "input",
+            name: "first_name",
+            message: "What is the employee's first name?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the employee's last name?"
+        },
+        {
+            type: "list",
+            name: "role_id",
+            message: "Chose a position for the new employee.",
+            choices: roleChoice
+        },
+        {
+            type: "list",
+            name: "manager_id",
+            message: "Chose a manager for the new employee.",
+            choices: managerChoice
+        }
+        ]);
+        console.log(employeeData);
+        dbLink.insertNewEmployee(employeeData);
+    }
+    finally { startQuestion() };
+};
+
+
 startQuestion();
