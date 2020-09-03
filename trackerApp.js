@@ -51,7 +51,7 @@ async function startQuestion() {
                 break;
 
             case startChoices[6]:
-                updateEmployeeManager();
+                // function here
                 break;
 
             case startChoices[7]:
@@ -59,38 +59,6 @@ async function startQuestion() {
                 break;
         }
     });
-};
-
-async function updateEmployeeManager() {
-    try {
-        const employee = await dbLink.viewAll();
-        const employeeChoices = employee.map(({ id, name }) => ({
-            name: name,
-            value: id
-        }));
-
-        const managerChoiceDB = await dbLink.getManagers();
-        const managerChoices = managerChoiceDB.map(({ id, manager }) => ({
-            name: manager,
-            value: id
-        }));
-        const updateEmployeeMg = await inquirer.prompt([{
-            type: "list",
-            name: "id",
-            message: "Which employee do you want to update?",
-            choices: employeeChoices
-        },
-        {
-            type: "list",
-            name: "manager_id",
-            message: "Who will be the new manager??",
-            choices: managerChoices
-        }
-        ]);
-        console.log("Employee has been updated.");
-        dbLink.updateManager(updateEmployeeMg.manager_id, updateEmployeeMg.id);
-
-    } finally { startQuestion() };
 };
 
 async function updateEmployeeRole() {

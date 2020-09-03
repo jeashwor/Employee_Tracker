@@ -79,10 +79,6 @@ class dbReader {
     return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [role, id]);
   };
 
-  updateManager(manager, id) {
-    return connection.query("UPDATE employee SET manager_id = ? WHERE id = ?", [manager, id]);
-  };
-
   quit() {
     console.log("\nGoodbye!");
     process.exit(0);
