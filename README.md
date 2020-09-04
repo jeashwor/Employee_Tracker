@@ -22,17 +22,30 @@ A command-line based application that allows a business owner to view and manage
 
 * Locate Green "Code" button and select the clipboard to copy repo data.
 
-* ![GitHub Page](./utils/codeClone.png)
+* ![GitHub Page](./assets/gitHubPageScrShot.png)
 
 * Using your preferred terminal application navigate to your desired location to copy the repository folder using the git clone command along with the info copied from the GitHub page in the above step.
 
 * ![GitHub Clone](./utils/gitHubClone.gif)
 
-* With in the terminal navigate to the newly cloned folder and run an npm install command to install necessary modules.
+*  With in the terminal navigate to the newly cloned folder and if you have MySQL command line application installed on your machine the following command can be used to login in, and then create the created database using the provided schema.sql and seeds.sql files.  Otherwise use your preferred method of communicating with the MySQL database.
 
-*![NPM Install](./utils/npmInstall.gif)
+```
+mysql -u root -p
+```
+```
+source schema.sql
+source seeds.sql
+```
 
-* You are now ready to run the application!
+
+*  No exit MySQL command line app by typing quit, and then run an npm install command to install necessary modules.
+
+```
+npm i
+```
+
+* Now you are now ready to run the application!
 
 
 ## Usage Instructions
