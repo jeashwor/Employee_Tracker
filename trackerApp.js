@@ -2,18 +2,22 @@ const inquirer = require("inquirer");
 const dbReader = require("./dbConnect.js");
 const cTable = require("console.table");
 
+// call constructor class to pull in mysql query methods
 const dbLink = new dbReader();
 
+// Array to build initial functionality prompts
 const startChoices = [
     "View all employees",
-    "View all employees by department",
-    "View all employees by manager",
+    "View all employees sorted by department",
+    "View all employees sorted by manager",
     "Add employee",
     "Remove employee",
     "Update employee role",
     "Update employee manager",
+    "View role",
     "Add role",
     "Remove role",
+    "View department",
     "Add department",
     "Remove department",
     "Exit application"
@@ -55,26 +59,36 @@ async function startQuestion() {
                 break;
 
             case startChoices[6]:
-                // function here
+                updateEmployeeManager();
                 break;
 
             case startChoices[7]:
-                addRoleQuestions();
+                console.table(await dbLink.viewRoles());
+                startQuestion();
                 break;
 
             case startChoices[8]:
-                deleteRoleQuestions();
+                newRoleQuestions();
                 break;
 
             case startChoices[9]:
-                newDepartmentQuestions();
+                deleteRoleQuestions();
                 break;
 
             case startChoices[10]:
-                deleteDepartmentQuestions();
+                console.table(await dbLink.viewDepartments());
+                startQuestion();
                 break;
 
             case startChoices[11]:
+                newDepartmentQuestions();
+                break;
+
+            case startChoices[12]:
+                deleteDepartmentQuestions();
+                break;
+
+            case startChoices[13]:
                 dbLink.quit();
                 break;
         }
@@ -84,13 +98,13 @@ async function startQuestion() {
 async function updateEmployeeRole() {
     try {
         const employee = await dbLink.viewAll();
-        const employeeChoices = employee.map(({ id, name }) => ({
+        const employeeChoices = await employee.map(({ id, name }) => ({
             name: name,
             value: id
         }));
 
         const roleChoiceDB = await dbLink.getRoles();
-        const roleChoices = roleChoiceDB.map(({ id, title }) => ({
+        const roleChoices = await roleChoiceDB.map(({ id, title }) => ({
             name: title,
             value: id
         }));
@@ -115,10 +129,43 @@ async function updateEmployeeRole() {
     } finally { startQuestion() };
 };
 
+async function updateEmployeeManager() {
+    try {
+        const employee = await dbLink.viewAll();
+        const employeeChoices = await employee.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+
+        const managerChoiceDB = await dbLink.getManagers();
+        const managerChoice = await managerChoiceDB.map(({ id, manager }) => ({
+            name: manager,
+            value: id
+        }));
+
+        const updateEmployeeID = await inquirer.prompt([{
+            type: "list",
+            name: "id",
+            message: "Which employee do you want to update?",
+            choices: employeeChoices
+        },
+        {
+            type: "list",
+            name: "manager_id",
+            message: "Who is the new manager?",
+            choices: managerChoice
+        }
+        ]);
+
+        console.log("Employee has been updated.");
+        dbLink.updateManager(updateEmployeeID.manager_id, updateEmployeeID.id);
+    } finally { startQuestion() };
+};
+
 async function deleteDepartmentQuestions() {
     try {
         const departmentChoiceDB = await dbLink.getDepartments();
-        const departmentChoices = departmentChoiceDB.map(({ id, name }) => ({
+        const departmentChoices = await departmentChoiceDB.map(({ id, name }) => ({
             name: name,
             value: id
         }));
@@ -138,7 +185,7 @@ async function deleteDepartmentQuestions() {
 async function deleteRoleQuestions() {
     try {
         const roleChoiceDB = await dbLink.getRoles();
-        const roleChoice = roleChoiceDB.map(({ id, title }) => ({
+        const roleChoice = await roleChoiceDB.map(({ id, title }) => ({
             name: title,
             value: id
         }));
@@ -158,7 +205,7 @@ async function deleteRoleQuestions() {
 async function deleteEmployeeQuestions() {
     try {
         const employee = await dbLink.viewAll();
-        const employeeChoices = employee.map(({ id, name }) => ({
+        const employeeChoices = await employee.map(({ id, name }) => ({
             name: name,
             value: id
         }));
@@ -189,16 +236,47 @@ async function newDepartmentQuestions() {
     } finally { startQuestion() };
 };
 
+async function newRoleQuestions() {
+    try {
+        const departmentChoiceDB = await dbLink.getDepartments();
+        const departmentChoices = await departmentChoiceDB.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+        const newRoleID = await inquirer.prompt([{
+            type: "list",
+            name: "department_id",
+            message: "Which department does the new role serve.",
+            choices: departmentChoices
+        },
+        {
+            type: "input",
+            name: "title",
+            message: "What is the title of the new role?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the salary for the new role?"
+        }
+        ]);
+
+        console.log(newRoleID.title + " has been added.");
+        dbLink.insertNewRole(newRoleID);
+
+    } finally { startQuestion() };
+};
+
 async function newEmployeeQuestions() {
     try {
         const roleChoiceDB = await dbLink.getRoles();
-        const roleChoice = roleChoiceDB.map(({ id, title }) => ({
+        const roleChoices = await roleChoiceDB.map(({ id, title }) => ({
             name: title,
             value: id
         }));
 
         const managerChoiceDB = await dbLink.getManagers();
-        const managerChoice = managerChoiceDB.map(({ id, manager }) => ({
+        const managerChoice = await managerChoiceDB.map(({ id, manager }) => ({
             name: manager,
             value: id
         }));
@@ -217,7 +295,7 @@ async function newEmployeeQuestions() {
             type: "list",
             name: "role_id",
             message: "Chose a position for the new employee.",
-            choices: roleChoice
+            choices: roleChoices
         },
         {
             type: "list",

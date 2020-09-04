@@ -24,19 +24,10 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId);
 });
 
+// Make con.query return a promise to use in async await functions
 connection.query = util.promisify(connection.query);
 
-// connectDB = query => {
-//   connection.query(query, (err, res) => {
-//     if (err) {
-//       console.log(err);
-//       throw err;
-//     }
-//     // console.log("\n");
-//     // console.table(res);
-//     return res;
-//   });
-// };
+// Constructor class to handle all data query functionality
 
 class dbReader {
   constructor() {
@@ -57,6 +48,16 @@ class dbReader {
     return connection.query(query);
   };
 
+  viewRoles() {
+    let query = "SELECT * FROM role";
+    return connection.query(query);
+  }
+
+  viewDepartments() {
+    let query = "SELECT * FROM department";
+    return connection.query(query);
+  };
+  
   insertNewEmployee(employeeData) {
     return connection.query("INSERT INTO employee SET ?", employeeData);
   };
@@ -70,7 +71,7 @@ class dbReader {
   };
   
   getRoles() {
-    let query = "SELECT DISTINCT id, title FROM role";
+    let query = "SELECT id, title FROM role";
     return connection.query(query);
   };
 
@@ -98,6 +99,10 @@ class dbReader {
 
   updateRole(role, id) {
     return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [role, id]);
+  };
+
+  updateManager(manager, id) {
+    return connection.query("UPDATE employee SET manager_id = ? WHERE id = ?", [manager, id]);
   };
 
   quit() {

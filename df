@@ -1,0 +1,109 @@
+[33mcommit ca53224b000dc6c0239d3255d3975fa281fac2a1[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 15:24:34 2020 -0400
+
+    Revert "added updated employee manager functionality"
+    
+    This reverts commit b03ed5773b22dc6b326371ae8e5a607d84f67213.
+
+[33mcommit ba0ec33bba4d99ef80391c64e5b4fb825034fd28[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 15:23:57 2020 -0400
+
+    prerevert commit
+
+[33mcommit b03ed5773b22dc6b326371ae8e5a607d84f67213[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 02:58:55 2020 -0400
+
+    added updated employee manager functionality
+
+[33mcommit c1ab1ed2e855b01cb92221a7e5e2895cc91a1f05[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 02:49:24 2020 -0400
+
+    completed update employee role function
+
+[33mcommit 7a7c674b24b066a06729bc4c74c2082a81d8ec90[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 02:21:46 2020 -0400
+
+    added console logs to tell which employee was added and deleted
+
+[33mcommit 594a1b21e5b2340e1df611c22ab51bd7982bc2b5[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 01:11:33 2020 -0400
+
+    finished add employee function
+
+[33mcommit 33fd4b6251337c7ac45d219813d8e057c9ec5535[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Thu Sep 3 00:36:56 2020 -0400
+
+    completed get manager and get role functions
+
+[33mcommit e92b6cba67ba3f42d2310b36e69c6c7e238bdd87[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Wed Sep 2 23:07:28 2020 -0400
+
+    moving console.table to main app and making db calls async
+
+[33mcommit b235bb18416457ba69bd4f42376a6b015d983536[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Wed Sep 2 21:51:59 2020 -0400
+
+    completed view all employees with correct manager display
+
+[33mcommit d5e370be1296741a3517980d8547ecb236aca300[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Wed Sep 2 19:28:45 2020 -0400
+
+    added quit function
+
+[33mcommit 02b550fcd6d00ff1bb99c33ec2817fd5949364bf[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Wed Sep 2 19:20:03 2020 -0400
+
+    began building dbConnect.js with database queries
+
+[33mcommit 1c546ffa607638412474e825150f5eb90e14f21e[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Wed Sep 2 09:22:14 2020 -0400
+
+    updated package.json file and created trackerApp.js file to begin javascript
+
+[33mcommit a2a16470cdade93fd3aa94babeba27a9ccc6f9a5[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Tue Sep 1 14:49:16 2020 -0400
+
+    updated seeds.sql file
+
+[33mcommit 9bf05812d1b326826d1ba4952fded7456fe8a188[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Mon Aug 31 23:21:26 2020 -0400
+
+    updated schema file with Foriegn Key attributes
+
+[33mcommit 9faafdef28943627b4bc84b8a5819df46c483f4f[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Mon Aug 31 22:13:12 2020 -0400
+
+    corrected mistake in schema.sql file
+
+[33mcommit 7670d1b8d19733ae3e5a493be934a1e5ea16eb42[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Mon Aug 31 22:10:00 2020 -0400
+
+    wrote initial schema.sql file to create database as described in readme file
+
+[33mcommit efa541d3644bfeed707ac2a0364657f61cbb010e[m
+Author: Jacob Ashworth <jeashwor@gmail.com>
+Date:   Mon Aug 31 21:59:15 2020 -0400
+
+    initial file creation and folder setup
+
+[33mcommit 72b6176e15fa8264904181b476bfd2c450b4fbbc[m
+Author: Jacob Ashworth <65980194+jeashwor@users.noreply.github.com>
+Date:   Mon Aug 31 21:53:23 2020 -0400
+
+    Initial commit
