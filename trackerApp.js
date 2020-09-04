@@ -95,6 +95,7 @@ async function startQuestion() {
     });
 };
 
+// Begin updated functions
 async function updateEmployeeRole() {
     try {
         const employee = await dbLink.viewAll();
@@ -162,6 +163,7 @@ async function updateEmployeeManager() {
     } finally { startQuestion() };
 };
 
+// Begin Delete element functions
 async function deleteDepartmentQuestions() {
     try {
         const departmentChoiceDB = await dbLink.getDepartments();
@@ -222,6 +224,7 @@ async function deleteEmployeeQuestions() {
     } finally { startQuestion() };
 };
 
+// Begin New element functions
 async function newDepartmentQuestions() {
     try {
         const departmentData = await inquirer.prompt({

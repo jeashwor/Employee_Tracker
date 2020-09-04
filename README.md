@@ -5,8 +5,11 @@
   
 A command-line based application that allows a business owner to view and manage the departments, roles, and employees in there company.  Allows for storage of important employee data with MySQL that can be modified using a node.js.
   
-![screen shot](./assets/mainScrShot.png)
+![screen shot](./assets/demo.gif)
 
+<br>
+<br>
+<br>
   
 ## Table of Contents
   
@@ -15,6 +18,9 @@ A command-line based application that allows a business owner to view and manage
 * [License](#license)  
 * [Questions](#questions)
 
+<br>
+<br>
+<br>
   
 ## Installation Instructions
 
@@ -26,54 +32,77 @@ A command-line based application that allows a business owner to view and manage
 
 * Using your preferred terminal application navigate to your desired location to copy the repository folder using the git clone command along with the info copied from the GitHub page in the above step.
 
-* ![GitHub Clone](./utils/gitHubClone.gif)
-
 *  With in the terminal navigate to the newly cloned folder and if you have MySQL command line application installed on your machine the following command can be used to login in, and then create the created database using the provided schema.sql and seeds.sql files.  Otherwise use your preferred method of communicating with the MySQL database.
 
-```
-mysql -u root -p
-```
-```
-source schema.sql
-source seeds.sql
-```
+    ```
+    mysql -u root -p
+    ```
+    ```
+    source schema.sql
+    source seeds.sql
+    ```
 
 
 *  No exit MySQL command line app by typing quit, and then run an npm install command to install necessary modules.
 
-```
-npm i
-```
+    ```
+    npm i
+    ```
+
+* Now open the dbConnect.js file and enter your username and password in the areas depicted below.
+
+    ![MySQL Password](./assets/changePW.png)
 
 * Now you are now ready to run the application!
 
+    ![screen shot](./assets/mainScrShot.png)
+
+<br>
+<br>
+<br>
 
 ## Usage Instructions
 
-* Application can be called using your command line from the README_Generator file director using the command:
-```
-node index.js
-```
-* Answer questions that follow to generate new README.md file in the newFile folder in this directory. 
-    * See gif below description for walk through!
+* Application can be called from your command line in the README_Generator file directory using the following command:
 
+    ```
+    node index.js
+    ```
+    or
+    ```
+    npm run start
+    ```
+
+* Application will open and give the following actions that can be performed with the database created. 
+
+    *  "View all employees"
+    *  "View all employees sorted by department"
+    *  "View all employees sorted by manager"
+    *  "Add employee"
+    *  "Remove employee"
+    *  "Update employee role"
+    *  "Update employee manager"
+    *  "View role"
+    *  "Add role"
+    *  "Remove role"
+        *  Note: Will remove all employees with this role!
+    *  "View department"
+    *  "Add department"
+    *  "Remove department"
+        *  Note: Will remove all roles and employees with this department!
+    *  "Exit application"
+
+<br>
+<br>
+<br>
 
 ## License
 
 * Application licensed under MIT.  For more information see [license document](./utils/license.md).
-
-
-## Contributing
-
-Contributions to follow Contributor Covenant.  See below for more information.
-
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/)
-
-
-## Test
-
-* No test were created in initial programming of application.  Further development will include implementation of TDD principals.  
-
+  
+<br>
+<br>
+<br>
 
 ## Questions
 
