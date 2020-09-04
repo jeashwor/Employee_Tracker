@@ -1,6 +1,6 @@
 # Employee_Tracker
 
-## Description
+## Description  
 ![license badge](https://img.shields.io/badge/license-MIT-brightgreen)
   
 A command-line based application that allows a business owner to view and manage the departments, roles, and employees in there company.  Allows for storage of important employee data with MySQL that can be modified using a node.js.
@@ -11,7 +11,7 @@ A command-line based application that allows a business owner to view and manage
 <br>
 <br>
   
-## Table of Contents
+## Table of Contents  
   
 * [Installation](installation-instructions)  
 * [Usage](#usage-instructions)  
@@ -22,7 +22,7 @@ A command-line based application that allows a business owner to view and manage
 <br>
 <br>
   
-## Installation Instructions
+## Installation Instructions  
 
 * Follow [Link](https://github.com/jeashwor/Employee_Tracker) to application GitHub repository.
 
@@ -61,7 +61,9 @@ A command-line based application that allows a business owner to view and manage
 <br>
 <br>
 
-## Usage Instructions
+## Usage Instructions  
+
+*  See full walk through of application at this [link](https://drive.google.com/file/d/1eRlv1WdLZxfFup4PfElRCwgRXlCBl6BK/view)
 
 * Application can be called from your command line in the README_Generator file directory using the following command:
 
